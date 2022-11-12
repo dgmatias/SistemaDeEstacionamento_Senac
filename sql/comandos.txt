@@ -1,0 +1,62 @@
+create DATABASE estacionamento;
+
+use estacionamento;
+
+CREATE TABLE tbl_usuario (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(100) NOT NULL,
+    email varchar(100) NOT NULL,
+    senha varchar(255) NOT NULL,
+    avatar varchar(100) NOT NULL
+);
+
+CREATE TABLE tbl_cliente (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(100) NOT NULL,
+    contato varchar(20) NOT NULL
+);
+
+CREATE TABLE tbl_veiculo (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    tipo int(1) NOT NULL,
+    marca varchar(30) NOT NULL,
+    modelo varchar(50) NOT NULL,
+    placa VARCHAR(15) NOT NULL,
+    cliente_id int NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES tbl_cliente (id)
+);
+
+CREATE TABLE tbl_estacionamento (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    cliente_id int NOT NULL,
+    operador_id int NOT NULL, 
+    FOREIGN KEY (operador_id) REFERENCES tbl_usuario (id),
+    data date NOT NULL,
+    hora time NOT NULL,
+    status INT(1) DEFAULT 0
+);
+
+INSERT INTO tbl_usuario (nome, email, senha) VALUES ('diego', 'diego@gmail.com', '1234');
+
+INSERT INTO tbl_cliente (nome, contato) VALUES ('fred',   '111111111');
+INSERT INTO tbl_cliente (nome, contato) VALUES ('julio',  '222222222');
+INSERT INTO tbl_cliente (nome, contato) VALUES ('ricardo','333333333');
+INSERT INTO tbl_cliente (nome, contato) VALUES ('aghata reis',  '444444444');
+INSERT INTO tbl_cliente (nome, contato) VALUES ('kayky', '555555555');
+
+INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES ('1', 'honda', 'cb 500r', '1111111', '1');
+INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES ('0', 'volkswagen', 'fusca', '2222222', '2');
+INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES ('0', 'jeep', 'renegate', '3333333', '3');
+INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES ('0', 'honda', 'honda civic', '4444444', '4');
+INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES ('0', 'volkswagen', 'fusca', '5555555', '5');
+
+INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora, status) VALUES ('1', '1', '20/04', '12:00', '0');
+INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora, status) VALUES ('2', '1', '11/02', '15:00', '1');
+INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora, status) VALUES ('3', '1', '20/04', '07:00', '1');
+INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora, status) VALUES ('4', '1', '09/04', '10:00', '0');
+INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora, status) VALUES ('5', '1', '15/04', '09:00', '0');
+
+
+SELECT e.data, c.nome , c.contato , v.placa ,v.modelo , e.status, u.nome
+FROM tbl_usuario as u INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
+INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id
