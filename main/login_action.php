@@ -23,13 +23,14 @@ if(!empty($dados["SendLogin"])){
             exit;
 
         }else{
-            $_SESSION['msg'] = "<p style='color: #ff0000'>ERRO: Usuário ou senha invalidos!</p>";
+            header('Location: login.php');
         }
-        if(isset($_SESSION['msg'])){
-            echo $_SESSION['msg'];
-            unset ($_SESSION['msg']);
-        }
+    
+    } else {
+        header('Location: login.php');
     }
+} else {
+    header('Location: login.php');
 }
 
 ?>
