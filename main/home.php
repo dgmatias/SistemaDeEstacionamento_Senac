@@ -4,9 +4,9 @@ require 'config.php';
 
 $query = [];
 
-$sql=$pdo->query('SELECT e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador
+$sql=$pdo->query("SELECT e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador
 FROM tbl_usuario as u INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
-INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id');
+INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id");
 
 if($sql->rowCount() > 0) {   
     $query = $sql->fetchall(PDO::FETCH_ASSOC);  
@@ -15,10 +15,14 @@ if($sql->rowCount() > 0) {
 $cliente = filter_input(INPUT_GET, 'cliente');
 $placa = filter_input(INPUT_GET, 'placa');
 
+
+
+
 $query =$pdo->query("SELECT e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador
 FROM tbl_usuario as u INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
 INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id
-WhERE c.nome  LIKE'%$cliente%' and v.placa LIKE'%$placa%' ");
+WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%' ");
+
 
 ?>
 
@@ -78,18 +82,14 @@ WhERE c.nome  LIKE'%$cliente%' and v.placa LIKE'%$placa%' ");
                 
                 <div id="form-container">
     
+                    <span> Pesquisar: </span> <br>
                     <form action="" method="get">
     
-                        
+                            <input class="input-form" type="text" name="cliente">
     
-                             Pesquisar: <br>
-                            <input class="input-form" type="search" name="nome">
+                            <input class="input-form" type="text" name="placa">
     
-                            <input class="input-form" type="search" name="modelo">
-    
-                            <input class="form-button" type="submit" value="Buscar">
-
-                        
+                            <input class="form-button" type="submit" value="Buscar">                  
 
                     </form>
     
@@ -123,6 +123,7 @@ WhERE c.nome  LIKE'%$cliente%' and v.placa LIKE'%$placa%' ");
                                 <td> <?php echo $resultado['placa']; ?> </td>
                                 <td> <?php echo $resultado['status']; ?> </td>
                                 <td> <?php echo $resultado['operador']; ?> </td>
+                                <td> <a href=""> Mais detalhes </a> </td>
                         
                         
                             </tr>
