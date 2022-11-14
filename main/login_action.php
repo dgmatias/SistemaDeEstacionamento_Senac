@@ -15,7 +15,7 @@ if(!empty($dados["SendLogin"])){
         
         $resultado = $sql->fetch(PDO::FETCH_ASSOC);
 
-        if(password_verify($dados['password'], $resultado['senha'])){
+        if(password_verify($dados['senha'], $resultado['senha'])){
 
             $_SESSION['id'] = $resultado ['id'];
             $_SESSION['nome'] = $resultado ['nome'];
