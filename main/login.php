@@ -37,9 +37,9 @@
 
                         <input class="input-form" type="email" name="email" placeholder="email"> <br>
 
-                        <input class="input-form" type="password" name="password" placeholder="senha"> <br>
+                        <input class="input-form" type="password" name="senha" placeholder="senha"> <br>
 
-                        <input id="button-right" type="submit" value="Logar" name="sendLogin">
+                        <input id="button-right" type="submit" value="Logar" name="SendLogin">
 
                     </form>
 
