@@ -20,13 +20,13 @@
                 
                 <div id="form-container">
                     
-                    <form action="login_action.php">
+                    <form action="cadastro_action.php" method="post">
                     
                         <input class="input-form" type="text" name="nome" placeholder="Nome"> <br>
 
                         <input class="input-form" type="email" name="email" placeholder="Email"> <br>
 
-                        <input class="input-form" type="password" name="password" placeholder="Senha"> <br>
+                        <input class="input-form" type="password" name="senha" placeholder="Senha"> <br>
 
                         <input class="input-form" type="password" name="confirmarSenha" placeholder="Confirmar senha"> <br>
 
