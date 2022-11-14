@@ -1,48 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <link rel="stylesheet" href="./static/css/cadastro.css">
+    <link rel="stylesheet" href="./static/css/reset.css">
+    <title> Login </title>
 </head>
 <body>
     
-    <div class="container">
+    <div id="grid-container">
 
-        <h1>Crie sua conta!<h1>
+        <div id="left-container">
 
-        <div class="content">
+            <div id="left-content">
 
-            <form action="cadastro_action.php" method="post">
+                <div id="h2-left"> <h2> Cadastro </h2> </div>
+                
+                <div id="form-container">
+                    
+                    <form action="login_action.php">
+                    
+                        <input class="input-form" type="text" name="nome" placeholder="Nome"> <br>
 
-            <label for="">
-                Nome: <br>
-                <input type="text" name="nome">
-            </label> <br>
+                        <input class="input-form" type="email" name="email" placeholder="Email"> <br>
 
-            <label for="">
-                Email: <br>
-                <input type="email" name="email">
-            </label> <br>
+                        <input class="input-form" type="password" name="password" placeholder="Senha"> <br>
 
-            <label for="">
-                Senha: <br>
-                <input type="password" name="senha">
-            </label> <br>
+                        <input class="input-form" type="password" name="confirmarSenha" placeholder="Confirmar senha"> <br>
 
-            <label for="">
-                Confirme a senha: <br>
-                <input type="password" name="confirmarSenha">
-            </label> <br>
+                        <input id="button-left" type="submit" value="Cadastrar" name="sendLogin">
 
-            <label for="">
-                <input type="submit" value="Finalizar!">
-            </label><br>
+                    </form>
 
-            </form>
+                </div>
+
+            </div>
 
         </div>
+
+        <div id="right-container">
+
+            <div id="right-content">
+
+                <div id="h1-right"> <h1> Estacionamento </h1> </div>
+                <div id="h2-right"> <h2> Um sistema de estacionamento feito com php. </h2> </div>
+                <div id="button-right"> <a href="login.php"> Já tem uma conta ? </a> </div>
+
+            </div>
+
+        </div>
+
 
     </div>
 
