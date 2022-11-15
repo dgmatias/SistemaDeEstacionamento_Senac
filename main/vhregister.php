@@ -2,6 +2,9 @@
 
 require 'config.php';
 
+session_start();
+ob_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +28,7 @@ require 'config.php';
             <div>
 
                 <div class="item-menu"> <img src="" alt="foto-de-perfil"> </div>
-                <div class="item-menu"> <span>  nome  </span> </div>
+                <div class="item-menu"> <span>  <?= $_SESSION['nome']?>  </span> </div>
                 <div class="item-menu"> <a href=""> Sair </a> </div>
                 
             </div>
