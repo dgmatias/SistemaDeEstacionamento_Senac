@@ -1,70 +1,75 @@
-</header>
-<div class="container">
-    <h1>Cadastro de Veículo</h1>
+<?php 
 
-    <form action="vhregister_action.php" method="post" class="form-edit">
+require 'config.php';
 
-        <input type="hidden" name="operador">
+?>
 
-        <div class="edit">
-            <label for="" class="form-label">
-                Cliente:
-                <input type="text" name="cliente" class="form-control">
-            </label>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/css/vhregister.css">
+    <link rel="stylesheet" href="./static/css/reset.css">
+    <title> Cadastrar veiculo </title>
+</head>
+<body>
+
+    <div id="grid-container">
+        
+        <div id="menu-container">            
+
+            <div class="item-menu" id="left-menu"> <a href="home.php"> Sistema de estacionamento </a> </div>
+            
+            <div>
+
+                <div class="item-menu"> <img src="" alt="foto-de-perfil"> </div>
+                <div class="item-menu"> <span>  nome  </span> </div>
+                <div class="item-menu"> <a href=""> Sair </a> </div>
+                
+            </div>
+
         </div>
-        <div class="edit">
-            <label for="" class="form-label">
-                Contato:
-                <input type="text" name="contato" class="form-control">
-            </label>
+            
+        <div id="main-container">
+
+            <div id="h1-container"> <h1>Cadastro de Veículo</h1> </div>
+
+            <div id="form-container">
+
+                <form action="vhregister_action.php" method="post">
+
+                    <input type="hidden" name="operador"> <br>
+
+                    <input class="input-form" type="text" name="nome" placeholder="Digite o nome do cliente"> <br>
+
+                    <input class="input-form" type="text" name="contato" placeholder="Digite o contato do cliente"> <br>
+
+                    <input class="input-form" type="number" name="tipo" placeholder="Digite o tipo do veiculo"> <br>
+
+                    <input class="input-form" type="text" name="placa" placeholder="Digite o nome da placa"> <br>
+
+                    <input class="input-form" type="text" name="marca" placeholder="Digite o nome do marca"> <br>
+
+                    <input class="input-form" type="text" name="modelo" placeholder="Digite o nome do modelo"> <br>
+
+                    <input class="input-form" type="date" name="data"> <br>
+
+                    <input class="input-form" type="time" name="hora"> <br>
+
+                    <input id="button-form" type="submit" name="cadastrar" value="cadastrar">
+            
+                </form>
+
+                <div> <a href="home.php"> Voltar </a>  </div>
+                
+            </div>    
+                               
         </div>
 
-        <div class="edit">
-            <label for="" class="form-label">
-                Tipo do Veículo:
-                <input type="text" name="tipo" class="form-control">
-            </label>
-        </div>
-
-        <div class="edit">
-            <label for="" class="form-label">
-                Placa:
-                <input type="text" name="placa" class="form-control">
-            </label>
-        </div>
-
-        <div class="edit">
-            <label for="" class="form-label">
-                Marca:
-                <input type="text" name="marca" class="form-control">
-            </label>
-        </div>
-
-        <div class="edit">
-            <label for="" class="form-label">
-                Modelo:
-                <input type="text" name="modelo" class="form-control">
-            </label>
-        </div>
-
-        <div class="edit">
-            <label for="" class="form-label">
-                Data:
-                <input type="date" name="data" class="form-control">
-            </label>
-        </div>
-
-        <div class="edit">
-            <label for="" class="form-label">
-                Hora:
-                <input type="time" name="hora" class="form-control">
-            </label>
-        </div>
-
-        <input type="submit" class="btn btn-primary" name="Cadastrar" value="Cadastrar">
-        <a href="home.php" class="btn btn-danger">Cancelar e voltar</a>
-    </form>
-
-</div>
+    </div>
 
 </body>
+</html>
+
