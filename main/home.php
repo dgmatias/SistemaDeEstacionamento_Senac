@@ -1,12 +1,31 @@
-<?php
-    session_start();
-    ob_start();
+<?php 
 
-    require 'config.php';
+session_start();
+ob_start();
 
-    $id = $_SESSION['id'];
-    $sql = $pdo->query("SELECT * FROM tbl_usuario WHERE id = $id");
-    $banco = $sql->fetch(PDO::FETCH_ASSOC);   
+require 'config.php';
+
+$query = [];
+
+$sql=$pdo->query("SELECT c.id,  e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador
+FROM tbl_usuario as u INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
+INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id");
+
+if($sql->rowCount() > 0) {   
+    $query = $sql->fetchall(PDO::FETCH_ASSOC);  
+}
+
+$cliente = filter_input(INPUT_GET, 'cliente');
+$placa = filter_input(INPUT_GET, 'placa');
+
+
+
+
+$query =$pdo->query("SELECT e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador
+FROM tbl_usuario as u INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
+INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id
+WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%' ");
+
 
 ?>
 
@@ -16,12 +35,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/css/userprofile.css">
     <link rel="stylesheet" href="./static/css/reset.css">
-    <title>Perfil do operador</title>
+    <link rel="stylesheet" href="./static/css/home2.css">
+    <title> Home </title>
 </head>
 <body>
-    
+
     <div id="grid-container">
 
         <div id="menu-container">            
@@ -41,61 +60,72 @@
 
         <div id="main-container">
 
-            <div id="avatar-container">
-
-                <div> <h1>Bem-vindo, <?php echo $_SESSION['nome'] ?> </h2> </div>
-                
-                <div> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil"> </div>
-
-                <div>  <h2>Trocar Avatar</h2> </div>
+            <div id="link-container">
     
-                <div>
+                <div class="button-link"> <a  href="userprofile.php"> Perfil do operador </a> </div>
+                <div class="button-link"> <a  href="vhregister.php"> Cadastro de veículo </a> </div>
 
-                    <form action="recebedor.php" method="post" enctype="multipart/form-data">
-                        <input type="file" name="arquivo" />
-                        <input type="submit" value="enviar">
-                    </form>
+            </div> <br> <br>
+            
+            
+            <div id="form-container">
 
-                </div>
+                <form action="" method="get">
+
+                    <label for="">
+                        Pesquisar: <br>
+                        <input class="input-form" type="text" name="cliente" placeholder="Digite o nome do cliente">
+    
+                        <input class="input-form" type="text" name="placa" placeholder="Digite a placa do carro">
+    
+                        <input id="form-button" type="submit" value="Pesquisar">                  
+                    </label>
+
+                </form>
 
             </div>
 
 
-            <div id="edit-container">
+            <div id="table-container">
 
-                <div> <h2> Editar </h2> </div>
+                <table>
 
-                <div id="form-container">
+                    <tr>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Cliente</th>
+                        <th>Contato</th>
+                        <th>Veículo</th>
+                        <th>Modelo</th>
+                        <th>Placa</th>
+                        <th>Situação</th>
+                        <th>Operador</th>
 
-                    <form action="profile_action.php" method="post">
+                    </tr>
 
-                        <input type="hidden" name="id" value="3">
-
-                        <label for="">
-                            Nome: <br>
-                            <input class="input-form" type="text" name="operador"> <br>
-                        </label>
-             
-                        <label for="">
-                            Senha: <br>
-                            <input class="input-form" type="password" name="password"> <br>
-                        </label>
-                        
-                        <label for="">
-                            Confirmar senha: <br>
-                            <input class="input-form" type="password" name="password_confirm"> <br>           
-                        </label>
-
+                    <?php foreach($query as $resultado): ?>
+                        <tr>
+                            <td> <?php echo $resultado['data']; ?> </td>
+                            <td> <?php echo $resultado['hora']; ?> </td>
+                            <td> <?php echo $resultado['nome']; ?> </td>
+                            <td> <?php echo $resultado['contato']; ?> </td>
+                            <td> <?php echo $resultado['tipo']; ?> </td>
+                            <td> <?php echo $resultado['modelo']; ?> </td>
+                            <td> <?php echo $resultado['placa']; ?> </td>
+                            <td> <?php echo $resultado['status']; ?> </td>
+                            <td> <?php echo $resultado['operador']; ?> </td>
+                            <td> <a href="detalhes.php?id=<?=$usuario['id']; ?>" > Mais detalhes </a> </td>
                     
-                        <input id="button-form" type="submit" value="Salvar">
                     
-                    </form> 
+                        </tr>
+                    <?php endforeach; ?>
 
-                </div>
+                </table>
 
             </div>
 
         </div>
+
 
     </div>
 
