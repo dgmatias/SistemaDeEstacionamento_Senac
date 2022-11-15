@@ -58,14 +58,12 @@
     font-size: 40px;
     margin-bottom: 30px;
 }
-
+ 
 #form-container {
-    border: 2px solid  #3D3C3C;
+   border: 2px solid  #3D3C3C;
     border-radius: 30px;
     padding: 2rem;
 }
-
-
 
 .input-form {
     width: 200px;
@@ -84,7 +82,7 @@
     border-radius: 30px;
     color: #F0F0F0;
     padding: .3rem;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     width: 100%;
     text-align: center;
     cursor: pointer;
