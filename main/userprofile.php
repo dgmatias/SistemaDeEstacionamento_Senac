@@ -1,62 +1,103 @@
 <?php
     session_start();
     ob_start();
+
     require 'config.php';
 
-    if((!isset($_SESSION['id'])) && (!isset($_SESSION['nome']))){
-        $_SESSION['msg'] = "<p style='color: #ff0000'>Erro: Necessário fazer o login";
-        header("Location: login.php");
-        exit;
-    }
     $id = $_SESSION['id'];
     $sql = $pdo->query("SELECT * FROM tbl_usuario WHERE id = $id");
     $banco = $sql->fetch(PDO::FETCH_ASSOC);   
 
 ?>
 
-<header>    
-    <h2>Bem-vindo, <?php echo $_SESSION['nome'] ?></h2>
-    <a href="sair.php">Sair</a>    
-</header>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/css/userprofile.css">
+    <link rel="stylesheet" href="./static/css/reset.css">
+    <title>Perfil do operador</title>
+</head>
+<body>
+    
+    <div id="grid-container">
 
-<div>
-    <img src="arquivo/<?=$banco['avatar']; ?>" alt="">
-</div>
-<div class="avatar">
-    <h1>Trocar Avatar</h1>
-    <form action="recebedor.php" method="post" enctype="multipart/form-data" />
-        <input type="file" name="arquivo" />
-        <input type="submit" value="enviar">
-    </form>
-</div>
+        <div id="menu-container">            
 
-<div>   
+            <div class="item-menu" id="left-menu"> <a href="home.php"> Sistema de estacionamento </a> </div>
 
-        <h1>Editar Usuário</h1>
+            <div>
+
+                <div class="item-menu"> <img src="" alt="foto-de-perfil"> </div>
+                <div class="item-menu"> <span>  <?= $_SESSION['nome']?>  </span> </div>
+                <div class="item-menu"> <a href=""> Sair </a> </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="main-container">
+
+            <div id="avatar-container">
+
+                <div> <h1>Bem-vindo, <?php echo $_SESSION['nome'] ?> </h2> </div>
                 
-        <form action="profile_action.php" method="post">
-            <input type="hidden" name="id" value="3">
-            <div class="edit">
-                <label for="" class="form-label">
-                    Nome: <br>
-                    <input type="text" class="form-control" name="operador">
-                </label>
+                <div> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil"> </div>
+
+                <div>  <h2>Trocar Avatar</h2> </div>
+    
+                <div>
+
+                    <form action="recebedor.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="arquivo" />
+                        <input type="submit" value="enviar">
+                    </form>
+
+                </div>
+
             </div>
-            <div class="edit">
-                <label for="" class="form-label">
-                    Trocar a senha: <br>
-                    <input type="password" name="password" class="form-control">
-                </label>
-            </div>
-            <div class="edit">
-                <label for="" class="form-label">
-                    Confirmar a Senha: <br>
-                    <input type="password" name="password_confirm" class="form-control">           
-                </label>
-            </div>
+
+
+            <div id="edit-container">
+
+                <div> <h2> Editar </h2> </div>
+
+                <div id="form-container">
+
+                    <form action="profile_action.php" method="post">
+
+                        <input type="hidden" name="id" value="3">
+
+                        <label for="">
+                            Nome: <br>
+                            <input class="input-form" type="text" name="operador"> <br>
+                        </label>
+             
+                        <label for="">
+                            Senha: <br>
+                            <input class="input-form" type="password" name="password"> <br>
+                        </label>
+                        
+                        <label for="">
+                            Confirmar senha: <br>
+                            <input class="input-form" type="password" name="password_confirm"> <br>           
+                        </label>
+
                     
-            <input type="submit" value="Salvar" class="btn btn-primary">
-        </form>      
-        
+                        <input id="button-form" type="submit" value="Salvar">
+                    
+                    </form> 
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-</div> 
+
+</body>
+</html>
