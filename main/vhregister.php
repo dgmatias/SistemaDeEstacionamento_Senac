@@ -40,7 +40,7 @@ require 'config.php';
 
                 <form action="vhregister_action.php" method="post">
 
-                    <input type="hidden" name="operador"> <br>
+                    <input type="hidden"> <br>
 
                     <input class="input-form" type="text" name="nome" placeholder="Digite o nome do cliente"> <br>
 
