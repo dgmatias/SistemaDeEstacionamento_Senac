@@ -5,6 +5,10 @@ require 'config.php';
 session_start();
 ob_start();
 
+$id = $_SESSION['id'];
+$sql = $pdo->query("SELECT * FROM tbl_usuario WHERE id = $id");
+$banco = $sql->fetch(PDO::FETCH_ASSOC);   
+
 ?>
 
 <!DOCTYPE html>
@@ -13,8 +17,8 @@ ob_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/css/vhregister.css">
     <link rel="stylesheet" href="./static/css/reset.css">
+    <link rel="stylesheet" href="./static/css/vhregister.css">
     <title> Cadastrar veiculo </title>
 </head>
 <body>
@@ -27,7 +31,7 @@ ob_start();
             
             <div>
 
-                <div class="item-menu"> <img src="" alt="foto-de-perfil"> </div>
+                <div class="item-menu"> <img id="img-menu" src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil"> </div>
                 <div class="item-menu"> <span>  <?= $_SESSION['nome']?>  </span> </div>
                 <div class="item-menu"> <a href=""> Sair </a> </div>
                 
