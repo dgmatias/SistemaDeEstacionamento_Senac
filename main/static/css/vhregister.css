@@ -29,6 +29,13 @@
     display: inline;
     text-decoration: none;
     color: white;
+    padding-left: .5rem;
+}
+
+#img-menu {
+    height: 5vh;
+    border-radius: 50%;
+    width: 0px;
 }
 
 #menu-container a, img, span{
