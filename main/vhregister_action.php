@@ -1,10 +1,9 @@
 <?php
 
-    require 'config.php';
+require 'config.php';
 
-
-    session_start();
-    ob_start();
+session_start();
+ob_start();
 
     $dados = filter_input_array (INPUT_POST, FILTER_DEFAULT); 
 
@@ -18,7 +17,7 @@
         $sql->bindValue(':contato', $dados['contato']);
         $sql->execute();    
         
-        if($sql->rowCount()=== 0) {
+        if($sql->rowCount() === 0) {
 
             $sql=$pdo->prepare("INSERT INTO tbl_cliente (nome, contato) VALUES(:nome, :contato)");
     
@@ -26,27 +25,27 @@
             $sql->bindValue(':contato', $dados['contato']);
             $sql->execute();
     
-            $sql=$pdo->prepare("SELECT id from tbl_cliente WHERE nome = :nome and contato = :contato");
-            $sql->bindValue(':nome', $dados['nome']);
-            $sql->bindValue(':contato', $dados['contato']);
-            $sql->execute();
+            $query=$pdo->prepare("SELECT id from tbl_cliente WHERE nome = :nome and contato = :contato");
+            $query->bindValue(':nome', $dados['nome']);
+            $query->bindValue(':contato', $dados['contato']);
+            $query->execute();
     
-            if ($sql->rowCount() === 1) {
+            if ($query->rowCount() > 0) {
 
-                $cliente_id = $sql->fetch(PDO::FETCH_DEFAULT);   
+                $cliente_id = $query->fetch(PDO::FETCH_ASSOC);  
 
-                $sql=$pdo->prepare("INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES(:tipo, :marca, :modelo, :placa, :cliente_id");
+                $sql=$pdo->prepare("INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES(:tipo, :marca, :modelo, :placa, :cliente_id)");
         
                 $sql->bindValue(':tipo', $dados['tipo']);
                 $sql->bindValue(':marca', $dados['marca']);
                 $sql->bindValue(':modelo', $dados['modelo']);
                 $sql->bindValue(':placa', $dados['placa']);
-                $sql->bindValue(':cliente_id', $cliente_id);
+                $sql->bindValue(':cliente_id', $cliente_id['id']);
                 $sql->execute();
                 
                 $sql=$pdo->prepare("INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora) VALUES(:cliente_id, :operador_id, :data, :hora)");
                 
-                $sql->bindValue(':cliente_id', $cliente_id);
+                $sql->bindValue(':cliente_id', $cliente_id['id']);
                 $sql->bindValue(':operador_id', $operador_id);
                 $sql->bindValue(':data', $dados['data']);
                 $sql->bindValue(':hora', $dados['hora']);
@@ -55,9 +54,10 @@
                 header("Location: home.php");
                 exit;
 
-            }  header("Location: vhregister.php");
-                exit;
-        }  
-    }
+            }  
 
-    
+        } else {
+            header("Location: vhregister.php");
+            exit;
+        }
+    }
