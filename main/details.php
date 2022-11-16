@@ -53,7 +53,7 @@ $id = filter_input(INPUT_GET, 'id');  //Filtra os valores de ID no fomulário.
 
     </div>
 
-    *<div id="table-container">
+    <div id="table-container">
 
         <table>
             
