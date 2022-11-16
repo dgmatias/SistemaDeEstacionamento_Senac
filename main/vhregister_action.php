@@ -1,47 +1,71 @@
 <?php
+
     require 'config.php';
 
-    $query = [];
+    session_start();
+    ob_start();
 
-    $sql=$pdo->query( "SELECT e.data, e.hora, e.status, c.nome, c.contato, v.tipo, v.placa, v.modelo, u.nome as operador 
-    FROM tbl_estacionamento as e 
-    INNER JOIN tbl_usuario as u ON e.operador_id = u.id 
-    INNER JOIN tbl_cliente as c ON e.cliente_id = c.id 
-    INNER JOIN tbl_veiculo as v ON v.cliente_id = c.id;" );
+    $dados = filter_input_array (INPUT_POST, FILTER_DEFAULT); 
 
-    $cliente = filter_input(INPUT_POST, 'cliente');
-    $contato = filter_input(INPUT_POST,'contato');
-    $tipo = filter_input(INPUT_POST,'tipo');
-    $placa = filter_input(INPUT_POST,'placa');
-    $marca = filter_input(INPUT_POST,'modelo');
-    $data = filter_input(INPUT_POST,'data');
-    $hora = filter_input(INPUT_POST,'hora');
+    $operador_id = $_SESSION['id'];
 
-    if($cliente && $contato && $tipo && $placa && $marca && $modelo && $data && $hora) {
+    if($dados) {
 
-        $sql = $pdo->prepare(  "START TRANSACTION;
-                                INSERT INTO tbl_cliente (nome, contato)
-                                VALUES(:nome, :contato);
-                                INSERT INTO tbl_veiculo (tipo, placa, marca, modelo)
-                                VALUES(:tipo, :placa, :marca, :modelo);
-                                INSERT INTO tbl_estacionamento (data, hora)
-                                VALUES(:data, :hora);
-                                COMMIT;"
-                            );
+        $sql=$pdo->prepare("SELECT * from tbl_cliente WHERE nome = :nome and contato = :contato");
 
-        $sql->bindValue(':cliente', $cliente);
-        $sql->bindValue(':contato', $contato);
-        $sql->bindValue(':tipo', $tipo);
-        $sql->bindValue(':placa', $placa);
-        $sql->bindValue(':marca', $marca);
-        $sql->bindValue(':modelo', $modelo);
-        $sql->bindValue(':data', $data);
-        $sql->bindValue(':hora', $hora);
-        $sql->execute();
+        $sql->bindValue(':nome', $dados['nome']);
+        $sql->bindValue(':contato', $dados['contato']);
+        $sql->execute();    
+        
+        if($sql->rowCount === 0) {
 
-        header("Location: home.php");
+            $sql=$pdo->prepare("INSERT INTO tbl_cliente (nome, contato) VALUES(:nome, :contato); ");
+    
+            $sql->bindValue(':nome', $dados['nome']);
+            $sql->bindValue(':contato', $dados['contato']);
+            $sql->execute();
+    
+            $sql=$pdo->prepare("SELECT id from tbl_cliente WHERE nome = :nome and contato = :contato");
+            $sql->bindValue(':nome', $dados['nome']);
+            $sql->bindValue(':contato', $dados['contato']);
+            $sql->execute();
+    
+            if ($sql->rowCount() === 1) {
 
+                $cliente_id = $sql;
+
+                $sql=$pdo->prepare("INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES(:tipo, :marca,   :modelo, :placa, :cliente_id");
+        
+                $sql->bindValue(':tipo', $dados['tipo']);
+                $sql->bindValue(':marca', $dados['marca']);
+                $sql->bindValue(':modelo', $dados['modelo']);
+                $sql->bindValue(':placa', $dados['placa']);
+                $sql->bindValue(':cliente_id', $cliente_id);
+                $sql->execute();
+                
+                $sql=$pdo->prepare("INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora) VALUES(:cliente, :operador_id, :data, :hora)");
+                
+                $sql->bindValue(':cliente_id', $cliente_id);
+                $sql->bindValue(':operador_id', $operador_id);
+                $sql->bindValue(':data', $dados['data']);
+                $sql->bindValue(':hora', $dados['hora']);
+                $sql->execute();
+
+                header("Location: home.php");
+                exit;
+
+            } else {
+                header("Location: vhregister.php");
+                exit;
+
+            }
+        } else {
+            header("Location: vhregister.php");
+            exit;
+
+        }
     } else {
-        header('Location: vhregister.php');
+        header("Location: vhregister.php");
         exit;
+        
     }
