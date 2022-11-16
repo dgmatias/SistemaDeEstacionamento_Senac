@@ -7,7 +7,7 @@ CREATE TABLE tbl_usuario (
     nome varchar(100) NOT NULL,
     email varchar(100) NOT NULL,
     senha varchar(255) NOT NULL,
-    avatar varchar(100) NOT NULL
+    avatar varchar(100)
 );
 
 CREATE TABLE tbl_cliente (
