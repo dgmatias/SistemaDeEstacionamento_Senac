@@ -9,6 +9,7 @@ $id = $_SESSION['id'];
 $sql = $pdo->query("SELECT * FROM tbl_usuario WHERE id = $id");
 $banco = $sql->fetch(PDO::FETCH_ASSOC);   
 
+
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +50,7 @@ $banco = $sql->fetch(PDO::FETCH_ASSOC);
 
                     <input class="input-form" type="text" name="nome" placeholder="Digite o nome do cliente" required> <br>
 
-                    <input class="input-form" type="text" name="contato" placeholder="Digite o contato do cliente" required> <br>
+                    <input class="input-form" type="number" name="contato" placeholder="Digite o contato do cliente" required> <br>
 
                     <input class="input-form" type="number" name="tipo" placeholder="Digite o tipo do veiculo" required> <br>
 
