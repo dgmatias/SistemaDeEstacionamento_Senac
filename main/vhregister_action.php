@@ -2,6 +2,7 @@
 
     require 'config.php';
 
+
     session_start();
     ob_start();
 
@@ -17,9 +18,9 @@
         $sql->bindValue(':contato', $dados['contato']);
         $sql->execute();    
         
-        if($sql->rowCount === 0) {
+        if($sql->rowCount()=== 0) {
 
-            $sql=$pdo->prepare("INSERT INTO tbl_cliente (nome, contato) VALUES(:nome, :contato); ");
+            $sql=$pdo->prepare("INSERT INTO tbl_cliente (nome, contato) VALUES(:nome, :contato)");
     
             $sql->bindValue(':nome', $dados['nome']);
             $sql->bindValue(':contato', $dados['contato']);
@@ -32,9 +33,9 @@
     
             if ($sql->rowCount() === 1) {
 
-                $cliente_id = $sql;
+                $cliente_id = $sql->fetch(PDO::FETCH_DEFAULT);   
 
-                $sql=$pdo->prepare("INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES(:tipo, :marca,   :modelo, :placa, :cliente_id");
+                $sql=$pdo->prepare("INSERT INTO tbl_veiculo (tipo, marca, modelo, placa, cliente_id) VALUES(:tipo, :marca, :modelo, :placa, :cliente_id");
         
                 $sql->bindValue(':tipo', $dados['tipo']);
                 $sql->bindValue(':marca', $dados['marca']);
@@ -43,7 +44,7 @@
                 $sql->bindValue(':cliente_id', $cliente_id);
                 $sql->execute();
                 
-                $sql=$pdo->prepare("INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora) VALUES(:cliente, :operador_id, :data, :hora)");
+                $sql=$pdo->prepare("INSERT INTO tbl_estacionamento (cliente_id, operador_id, data, hora) VALUES(:cliente_id, :operador_id, :data, :hora)");
                 
                 $sql->bindValue(':cliente_id', $cliente_id);
                 $sql->bindValue(':operador_id', $operador_id);
@@ -54,18 +55,9 @@
                 header("Location: home.php");
                 exit;
 
-            } else {
-                header("Location: vhregister.php");
+            }  header("Location: vhregister.php");
                 exit;
-
-            }
-        } else {
-            header("Location: vhregister.php");
-            exit;
-
-        }
-    } else {
-        header("Location: vhregister.php");
-        exit;
-        
+        }  
     }
+
+    
