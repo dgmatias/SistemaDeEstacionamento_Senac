@@ -8,33 +8,37 @@
 
     $idUsuario = $_SESSION['id'];
 
-    if($dados) {
+    $nome = filter_input(INPUT_POST, 'nome');
+    $placa = filter_input(INPUT_POST, 'placa');
+    $placa = filter_input(INPUT_POST, 'placa');  
+    $tipo = filter_input(INPUT_POST, 'tipo');
+    $contato = filter_input(INPUT_POST, 'contato');
+    $marca = filter_input(INPUT_POST, 'marca');
+    $modelo = filter_input(INPUT_POST, 'modelo');
+    $data = filter_input(INPUT_POST, 'data');
+    $hora = filter_input(INPUT_POST, 'hora');
 
-        $sql = $pdo->prepare(
-                "UPDATE SET tbl_cliente (nome, contato)
-                VALUES(:nome, :contato);
-                UPDATE SET tbl_veiculo (tipo, placa, marca, modelo)
-                VALUES(:tipo, :placa, :marca, :modelo);
-                UPDATE SET tbl_estacionamento (data, hora)
-                VALUES(:data, :hora)
-                WHERE id = :id;
-                ");
+    if($id && $nome && $contato && $idade && $placa && $endereco) { 
 
-        $sql->bindValue(':nome', $dados['operador']);
+        $sql = $pdo->prepare( "UPDATE SET tbl_cliente (nome, placa) VALUES (:nome, :placa);
+        UPDATE SET tbl_veiculo (tipo, placa, marca, modelo) VALUES(:tipo, :placa, :marca, :modelo);
+        UPDATE SET tbl_estacionamento (data, hora) VALUES(:data, :hora) WHERE `tbl_clientes`.`id` = :id;" );
         $sql->bindValue(':nome', $dados['nome']);
-        $sql->bindValue(':contato', $dados['contato']);
-        $sql->bindValue(':tipo', $dados['tipo']);
         $sql->bindValue(':placa', $dados['placa']);
+        $sql->bindValue(':tipo', $dados['tipo']);
+        $sql->bindValue(':contato', $dados['contato']);
         $sql->bindValue(':marca', $dados['marca']);
         $sql->bindValue(':modelo', $dados['modelo']);
         $sql->bindValue(':data', $dados['data']);
         $sql->bindValue(':hora', $dados['hora']);
         $sql->execute();
 
-        header("Location: home.php");
+        header("Location: home.php"); //redirecionamento se sim
         exit;
 
     } else {
-        header('Location: vhregister.php');
+        header("Location: vhedit.php"); //redirecionamento se não
         exit;
     }
+
+?>

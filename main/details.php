@@ -5,11 +5,17 @@ ob_start();
 
 require 'config.php';
 
+$id = $_SESSION['id'];
+    $sql = $pdo->query("SELECT * FROM tbl_usuario WHERE id = $id");
+    $banco = $sql->fetch(PDO::FETCH_ASSOC);   
+
 $query = [];
 
-$sql=$pdo->query("SELECT c.id,  e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador
-FROM tbl_usuario as u INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
-INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id");
+$sql=$pdo->query("SELECT c.id, e.data, e.hora, e.status, c.nome, c.contato, v.tipo, v.placa, v.modelo, u.nome as operador FROM tbl_estacionamento as e 
+INNER JOIN tbl_usuario as u ON e.operador_id = u.id 
+INNER JOIN tbl_cliente as c ON e.cliente_id = c.id 
+INNER JOIN tbl_veiculo as v ON v.cliente_id = c.id;
+");
 
 if($sql->rowCount() > 0) {   
     $query = $sql->fetchall(PDO::FETCH_ASSOC);  
@@ -18,11 +24,12 @@ if($sql->rowCount() > 0) {
 $cliente = filter_input(INPUT_GET, 'cliente');
 $placa = filter_input(INPUT_GET, 'placa');
 
-$query =$pdo->query("SELECT e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador 
-FROM tbl_usuario as u 
-INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
-INNER JOIN tbl_cliente as c 
-INNER JOIN tbl_veiculo as v on v.cliente_id = c.id ");
+$query =$pdo->query("SELECT c.id, e.data, e.hora, e.status, c.nome, c.contato, v.tipo, v.placa, v.modelo, u.nome as operador FROM tbl_estacionamento as e 
+INNER JOIN tbl_usuario as u ON e.operador_id = u.id 
+INNER JOIN tbl_cliente as c ON e.cliente_id = c.id 
+INNER JOIN tbl_veiculo as v ON v.cliente_id = c.id
+WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%'; ");
+
 
 ?>
 
@@ -46,54 +53,58 @@ INNER JOIN tbl_veiculo as v on v.cliente_id = c.id ");
 
             <div>
 
-                <div class="item-menu"> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil"> </div>
+                <div class="item-menu"> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil" id="img-menu"> </div>
                 <div class="item-menu"> <span>  <?= $_SESSION['nome']?>  </span> </div>
-                <div class="item-menu"> <a href="logout.php"> Sair </a> </div>
+                <div class="item-menu"> <a href=""> Sair </a> </div>
 
             </div>
 
-    </div>
+        </div>
 
-    *<div id="table-container">
 
-        <table>
+        <div id="main-container">
 
-            <tr>
-                <th>Data</th>
-                <th>Hora</th>
-                <th>Cliente</th>
-                <th>Contato</th>
-                <th>Veículo</th>
-                <th>Modelo</th>
-                <th>Placa</th>
-                <th>Situação</th>
-                <th>Operador</th>
-            
-            </tr>
-        
-            <tr>
-                <?php foreach($query as $resultado): ?>
-                
-                <td><?php echo $resultado['hora']; ?> </td>
-                <td><?php echo $resultado['nome']; ?> </td>
-                <td><?php echo $resultado['contato']; ?> </td>
-                <td><?php echo $resultado['tipo']; ?> </td>
-                <td><?php echo $resultado['modelo']; ?> </td>
-                <td><?php echo $resultado['placa']; ?> </td>
-                <td><?php echo $resultado['operador']; ?> </td>
-                <td><?php echo $resultado['status']; ?> </td>
-                  
-            </tr>
+            <div id="table-container">
 
-            <?php endforeach; ?>
+                <table>
 
-            <div class="buttons-container">
-                <a href="finish.php"> Finalizar </a>
-                <a href="vhedit.php"> Editar </a>
-                <a href="home.php"> Voltar </a>
+                    <tr>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Cliente</th>
+                        <th>Contato</th>
+                        <th>Veículo</th>
+                        <th>Modelo</th>
+                        <th>Placa</th>
+                        <th>Situação</th>
+                        <th>Operador</th>
+
+                    </tr>
+
+                    <?php foreach($query as $resultado): ?>
+                        <tr>
+                            <td> <?php echo $resultado['data']; ?> </td>
+                            <td> <?php echo $resultado['hora']; ?> </td>
+                            <td> <?php echo $resultado['nome']; ?> </td>
+                            <td> <?php echo $resultado['contato']; ?> </td>
+                            <td> <?php echo $resultado['tipo']; ?> </td>
+                            <td> <?php echo $resultado['modelo']; ?> </td>
+                            <td> <?php echo $resultado['placa']; ?> </td>
+                            <td> <?php echo $resultado['status']; ?> </td>
+                            <td> <?php echo $resultado['operador']; ?> </td>
+                            
+                        </tr>
+                        <?php endforeach; ?>
+                        
+                        <td class="button-table"> <a href="finish.php"?id="<?php  $resultado['id']; ?>" > Finalizar </a> </td>
+                        <td class="button-table"> <a href="vhedit.php"?id="<?php  $resultado['id']; ?>" > Editar </a> </td>
+                        <td class="button-table"> <a href="details.php"?id="<?php  $resultado['id']; ?>" > Voltar </a> </td>
+
+                </table>
+
             </div>
 
-        </table>
+        </div>
 
 
     </div>
