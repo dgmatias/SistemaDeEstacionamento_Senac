@@ -29,6 +29,7 @@
     display: inline;
     text-decoration: none;
     color: white;
+    margin-left: .5rem;
 }
 
 #menu-container a, img, span{
@@ -36,6 +37,11 @@
     color: white;
 }
 
+#img-menu {
+    height: 5vh;
+    border-radius: 50%;
+    width: 30px;
+}
 
 
 /* Main Container */
@@ -56,6 +62,14 @@
 
 #avatar-container h1 {
     font-size: 40px;
+    margin-bottom: 2rem;
+}
+
+#img-avatar {
+    height: 30vh;
+    width: 200px;
+    border-radius: 50%;
+    border: 2px black solid;
 }
 
 /* Edit Container */
