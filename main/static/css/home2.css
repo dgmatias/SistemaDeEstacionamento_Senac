@@ -1,3 +1,5 @@
+
+
 /* Grid Container */
 
 #grid-container {
@@ -80,4 +82,37 @@
     background-color: #3D3C3C;
     padding: .5rem;
     margin-left: .5rem;
+}
+
+.button-table {
+    cursor: pointer;
+    padding-left: .5rem;
+    padding-bottom: 2rem;
+}
+
+
+.button-table a {
+    border-radius: 30px;
+    border: 2px solid #3D3C3C;
+    color: #F0F0F0;
+    padding: .5rem;
+    background-color: #3D3C3C;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+table {
+    width: 1000px;
+}
+
+th {
+    font-size: 20px;
+    padding-bottom: .5rem;
+    font-weight:bold;
+}
+
+td {
+    text-align: center;
+    padding-bottom: .4rem;
+    font-size: 17px;
 }
