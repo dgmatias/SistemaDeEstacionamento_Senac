@@ -47,23 +47,21 @@ $banco = $sql->fetch(PDO::FETCH_ASSOC);
 
                 <form action="vhregister_action.php" method="post">
 
-                    <input type="hidden"> <br>
+                    <input class="input-form" type="text" name="nome" placeholder="Digite o nome do cliente" required> <br>
 
-                    <input class="input-form" type="text" name="nome" placeholder="Digite o nome do cliente"> <br>
+                    <input class="input-form" type="text" name="contato" placeholder="Digite o contato do cliente" required> <br>
 
-                    <input class="input-form" type="text" name="contato" placeholder="Digite o contato do cliente"> <br>
+                    <input class="input-form" type="number" name="tipo" placeholder="Digite o tipo do veiculo" required> <br>
 
-                    <input class="input-form" type="number" name="tipo" placeholder="Digite o tipo do veiculo"> <br>
+                    <input class="input-form" type="text" name="placa" placeholder="Digite o nome da placa" required> <br>
 
-                    <input class="input-form" type="text" name="placa" placeholder="Digite o nome da placa"> <br>
+                    <input class="input-form" type="text" name="marca" placeholder="Digite o nome do marca" required> <br>
 
-                    <input class="input-form" type="text" name="marca" placeholder="Digite o nome do marca"> <br>
+                    <input class="input-form" type="text" name="modelo" placeholder="Digite o nome do modelo" required> <br>
 
-                    <input class="input-form" type="text" name="modelo" placeholder="Digite o nome do modelo"> <br>
+                    <input class="input-form" type="date" name="data" required> <br>
 
-                    <input class="input-form" type="date" name="data"> <br>
-
-                    <input class="input-form" type="time" name="hora"> <br>
+                    <input class="input-form" type="time" name="hora" required> <br>
 
                     <input id="button-form" type="submit" name="cadastrar" value="cadastrar">
             
