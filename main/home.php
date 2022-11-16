@@ -7,9 +7,11 @@ require 'config.php';
 
 $query = [];
 
-$sql=$pdo->query("SELECT c.id,  e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador
-FROM tbl_usuario as u INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
-INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id");
+$sql=$pdo->query("SELECT c.id, e.data, e.hora, e.status, c.nome, c.contato, v.tipo, v.placa, v.modelo, u.nome as operador FROM tbl_estacionamento as e 
+INNER JOIN tbl_usuario as u ON e.operador_id = u.id 
+INNER JOIN tbl_cliente as c ON e.cliente_id = c.id 
+INNER JOIN tbl_veiculo as v ON v.cliente_id = c.id;
+");
 
 if($sql->rowCount() > 0) {   
     $query = $sql->fetchall(PDO::FETCH_ASSOC);  
@@ -21,10 +23,11 @@ $placa = filter_input(INPUT_GET, 'placa');
 
 
 
-$query =$pdo->query("SELECT e.data, e.hora, c.nome , c.contato , v.tipo , v.modelo, v.placa , e.status, u.nome as operador
-FROM tbl_usuario as u INNER JOIN tbl_estacionamento as e on u.id = e.cliente_id 
-INNER JOIN tbl_cliente as c INNER JOIN tbl_veiculo as v on v.cliente_id = c.id
-WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%' ");
+$query =$pdo->query("SELECT c.id, e.data, e.hora, e.status, c.nome, c.contato, v.tipo, v.placa, v.modelo, u.nome as operador FROM tbl_estacionamento as e 
+INNER JOIN tbl_usuario as u ON e.operador_id = u.id 
+INNER JOIN tbl_cliente as c ON e.cliente_id = c.id 
+INNER JOIN tbl_veiculo as v ON v.cliente_id = c.id
+WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%'; ");
 
 
 ?>
@@ -114,7 +117,7 @@ WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%' ");
                             <td> <?php echo $resultado['placa']; ?> </td>
                             <td> <?php echo $resultado['status']; ?> </td>
                             <td> <?php echo $resultado['operador']; ?> </td>
-                            <td> <a href="detalhes.php?id=<?=$usuario['id']; ?>" > Mais detalhes </a> </td>
+                            <td> <a href="detalhes.php" id="<?php  $resultado['id']; ?>" > Mais detalhes </a> </td>
                     
                     
                         </tr>
