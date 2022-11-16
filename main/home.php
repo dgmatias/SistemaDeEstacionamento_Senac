@@ -118,7 +118,7 @@ WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%'; ");
                             <td> <?php echo $resultado['placa']; ?> </td>
                             <td> <?php echo $resultado['status']; ?> </td>
                             <td> <?php echo $resultado['operador']; ?> </td>
-                            <td class="button-table"> <a href="detalhes.php" id="<?php  $resultado['id']; ?>" > Mais detalhes </a> </td>
+                            <td class="button-table"> <a href="detalhes.php"?id="<?php  $resultado['id']; ?>" > Mais detalhes </a> </td>
                     
                         </tr>
                     <?php endforeach; ?>
