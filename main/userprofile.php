@@ -30,7 +30,7 @@
 
             <div>
 
-                <div class="item-menu"> <img src="" alt="foto-de-perfil"> </div>
+                <div class="item-menu"> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil" id="img-menu"> </div>
                 <div class="item-menu"> <span>  <?= $_SESSION['nome']?>  </span> </div>
                 <div class="item-menu"> <a href=""> Sair </a> </div>
 
@@ -45,7 +45,7 @@
 
                 <div> <h1>Bem-vindo, <?php echo $_SESSION['nome'] ?> </h2> </div>
                 
-                <div> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil"> </div>
+                <div> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil" id="img-avatar"> </div>
 
                 <div>  <h2>Trocar Avatar</h2> </div>
     
