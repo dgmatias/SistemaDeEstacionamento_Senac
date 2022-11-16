@@ -20,9 +20,6 @@ if($sql->rowCount() > 0) {
 $cliente = filter_input(INPUT_GET, 'cliente');
 $placa = filter_input(INPUT_GET, 'placa');
 
-
-
-
 $query =$pdo->query("SELECT c.id, e.data, e.hora, e.status, c.nome, c.contato, v.tipo, v.placa, v.modelo, u.nome as operador FROM tbl_estacionamento as e 
 INNER JOIN tbl_usuario as u ON e.operador_id = u.id 
 INNER JOIN tbl_cliente as c ON e.cliente_id = c.id 
@@ -117,8 +114,7 @@ WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%'; ");
                             <td> <?php echo $resultado['placa']; ?> </td>
                             <td> <?php echo $resultado['status']; ?> </td>
                             <td> <?php echo $resultado['operador']; ?> </td>
-                            <td> <a href="detalhes.php" id="<?php  $resultado['id']; ?>" > Mais detalhes </a> </td>
-                    
+                            <td class="button-table"> <a href="detalhes.php" id="<?php  $resultado['id']; ?>" > Mais detalhes </a> </td>
                     
                         </tr>
                     <?php endforeach; ?>
