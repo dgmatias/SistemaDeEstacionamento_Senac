@@ -67,23 +67,23 @@
 
                 <div id="form-container">
 
-                    <form action="profile_action.php" method="post">
+                    <form action="userprofile_action.php" method="post">
 
                         <input type="hidden" name="id" value="3">
 
                         <label for="">
                             Nome: <br>
-                            <input class="input-form" type="text" name="operador"> <br>
+                            <input class="input-form" type="text" name="nome"> <br>
                         </label>
              
                         <label for="">
                             Senha: <br>
-                            <input class="input-form" type="password" name="password"> <br>
+                            <input class="input-form" type="password" name="senha"> <br>
                         </label>
                         
                         <label for="">
                             Confirmar senha: <br>
-                            <input class="input-form" type="password" name="password_confirm"> <br>           
+                            <input class="input-form" type="password" name="confirmarSenha"> <br>           
                         </label>
 
                     
