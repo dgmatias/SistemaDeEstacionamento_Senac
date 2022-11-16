@@ -18,7 +18,7 @@ $id = filter_input(INPUT_GET, 'id');  //Filtra os valores de ID no fomulário.
 
         if($sql->rowCount() > 0) {
             $lista = $sql->fetch(PDO::FETCH_ASSOC);
-            print_r($lista);
+            // print_r($lista);
         }       
     }
 
@@ -57,7 +57,8 @@ $id = filter_input(INPUT_GET, 'id');  //Filtra os valores de ID no fomulário.
 
         <table>
             
-            
+            <h1>Mais Detalhes</h1>    
+
             <tr>
                 <h2>Data: <?php echo $lista['data']; ?></h2> 
                 <h2>Hora: <?php echo $lista['hora']; ?></h2>
