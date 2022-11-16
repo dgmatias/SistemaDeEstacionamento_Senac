@@ -5,6 +5,10 @@ ob_start();
 
 require 'config.php';
 
+$id = $_SESSION['id'];
+    $sql = $pdo->query("SELECT * FROM tbl_usuario WHERE id = $id");
+    $banco = $sql->fetch(PDO::FETCH_ASSOC);   
+
 $query = [];
 
 $sql=$pdo->query("SELECT c.id, e.data, e.hora, e.status, c.nome, c.contato, v.tipo, v.placa, v.modelo, u.nome as operador FROM tbl_estacionamento as e 
@@ -49,7 +53,7 @@ WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%'; ");
 
             <div>
 
-                <div class="item-menu"> <img src="" alt="foto-de-perfil"> </div>
+                <div class="item-menu"> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil" id="img-menu"> </div>
                 <div class="item-menu"> <span>  <?= $_SESSION['nome']?>  </span> </div>
                 <div class="item-menu"> <a href=""> Sair </a> </div>
 
