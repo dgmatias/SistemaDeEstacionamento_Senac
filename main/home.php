@@ -55,7 +55,7 @@ WhERE c.nome LIKE'%$cliente%' and v.placa LIKE'%$placa%'; ");
 
                 <div class="item-menu"> <img src="arquivo/<?=$banco['avatar']; ?>" alt="foto-de-perfil" id="img-menu"> </div>
                 <div class="item-menu"> <span>  <?= $_SESSION['nome']?>  </span> </div>
-                <div class="item-menu"> <a href=""> Sair </a> </div>
+                <div class="item-menu"> <a href="logout"> Sair </a> </div>
 
             </div>
 
